@@ -42,19 +42,20 @@ func (StudentData *StudentData) ShowBio() {
 
 // function to find and display student data
 func FindStudentData(StudentCode string, MapStudentData map[string]*StudentData) {
+	if StudentCode != "" {
+		isFound := false
+		for key, value := range MapStudentData {
 
-	isFound := false
-	for key, value := range MapStudentData {
-
-		if strings.EqualFold(StudentCode, key) {
-			isFound = true
-			value.ShowBio()
-			break
+			if strings.EqualFold(StudentCode, key) {
+				isFound = true
+				value.ShowBio()
+				break
+			}
 		}
-	}
 
-	if !isFound {
-		fmt.Printf("Maaf, data yang anda cari %s tidak ada", StudentCode)
+		if !isFound {
+			fmt.Printf("Maaf, data yang anda cari %s tidak ada", StudentCode)
+		}
 	}
 
 }
@@ -83,8 +84,6 @@ func main() {
 	if len(os.Args) > 1 {
 		checkStudentCode = os.Args[1]
 
-	} else {
-		checkStudentCode = ""
 	}
 
 	ConvertJsonToStructStudents("data/participants.json", &students)
@@ -95,9 +94,6 @@ func main() {
 		StudentDataMap[students.Students[i].Student_code] = &students.Students[i]
 	}
 
-	if checkStudentCode != "" {
-
-		FindStudentData(checkStudentCode, StudentDataMap)
-	}
+	FindStudentData(checkStudentCode, StudentDataMap)
 
 }
