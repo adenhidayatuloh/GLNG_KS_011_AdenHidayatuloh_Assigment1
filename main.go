@@ -63,7 +63,7 @@ func FindStudentData(StudentCode string, MapStudentData map[string]*StudentData)
 // function to convert json to data type Students
 func ConvertJsonToStructStudents(filePath string, objectStruct *Students) {
 	// Read JSON file content
-	data, err := os.ReadFile("data/participants.json")
+	data, err := os.ReadFile(filePath)
 	if err != nil {
 		log.Fatal(err)
 	}
